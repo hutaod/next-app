@@ -5,6 +5,7 @@ import { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore';
 let store: ToolkitStore;
 
 function makeStore() {
+  console.log(1111, "makeStore")
   return createStore({
     reducer: {
       counter: counterReducer
@@ -15,11 +16,15 @@ function makeStore() {
 export const HYDRATE = "__NEXT_REDUX_WRAPPER_HYDRATE__";
 let isInitState = false;
 
+const isBrowser = typeof window === "object" && typeof window.document === "object"
+
 export function getOrInitStore(initState?: any) {
+  // console.log("getOrInitStore", initState)
   if (!store) {
     store = makeStore();
   }
-  if (initState) {
+  if (isBrowser && initState && !isInitState) {
+    console.log("getOrInitStore2", initState)
     isInitState = true;
     store.dispatch({
       type: HYDRATE,

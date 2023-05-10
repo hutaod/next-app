@@ -1,7 +1,7 @@
 import Content from "./Content";
-import { increment } from "../../../store/features/counter/counterSlice"
-import { Counter } from "@/app/h5/store/features/counter/Counter";
-import { useStore } from "@/app/h5/store/tools";
+import { increment } from "../../../../redux/features/counter/counterSlice"
+import { Counter } from "../../../../redux/features/counter/Counter";
+import { useStore } from "../../../../redux/server";
 
 async function fetchData() {
   const res = await fetch("http://localhost:3000/apis/posts/detail")
@@ -9,7 +9,7 @@ async function fetchData() {
   return resJSON.data;
 }
 
-export default async function Home() {
+export default async function Detail() {
   const { dispatch } = useStore();
   const res = await fetchData()
   dispatch(increment())
